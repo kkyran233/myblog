@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head%}
+<link rel="stylesheet" href="{% static 'highlight/styles/default.min.css' %}">
+<script src="{% static 'highlight/highlight.min.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+<h1>{{ blog.title }}</h1>
+<hr>
+<div class="mt-2">
+    <img src="{% static 'image/OIP-C.jpg' %}" width="30" height="30" class="rounded-circle" alt="">
+    <span class="ms-2">{{ blog.author.username }}</span>
+    <span class="ms-2">于</span>
+    <span class="ms-2">{{ blog.pub_time }}</span>发布
+</div>
+<hr>
+<div class="py-2">
+    {{ blog.content|safe }}
+</div>
+<hr>
+<div class="mt-2">
+    <h3>评论({{ blog.comments.all|length }})</h3>
+    <form action="{% url 'blog:pub_comment' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="blog_id" value="{{ blog.id }}"></input>
+        <div class="mt-2">
+            <input type="text" class="form-control" placeholder="请输入评论" name="content">
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary mt-2">评论</button>
+        </div>
+    </form>
+</div>
+<div class="mt-2">
+    <ul class="list-group list-group-flush">
+        {% for comment in blog.comments.all %}
+        <li class="list-group-item mb-3">
+            <div class="d-flex justify-content-between text-body-secondary">
+                <div class="user-info">
+                    <img src="{% static 'image/OIP-C.jpg' %}" width="40" height="40" class="rounded-circle" alt="">
+                    <span class="ms-2">{{ comment.author.username }}</span>
+                </div>
+                <div class="create-time" style="line-height: 40px;">{{ comment.pub_time }}</div>
+            </div>
+            <div class="mt-2">{{ comment.content }}</div>
+
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<script>
+    hljs.highlightAll();
+</script>
+{% endblock %}
