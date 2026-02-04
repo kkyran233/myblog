@@ -14,7 +14,7 @@
 ## 技术栈
 
 ### 后端
-- Python 3.x
+- Python 3.13
 - Django 6.0.1
 - MySQL 数据库
 
@@ -30,7 +30,7 @@
 ## 安装与运行
 
 ### 环境准备
-1. 安装 Python 3.x 和 pip。
+1. 安装 Python 3.13 和 pip。
 2. 安装 MySQL 并创建数据库。
 3. 在 `myblog/my.cnf` 中配置数据库连接信息。
 
